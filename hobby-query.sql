@@ -71,7 +71,7 @@ FROM persons p
          LEFT JOIN person_hobbies ph on p.id = ph.person_id
          LEFT JOIN hobbies h on h.id = ph.hobby_id
 GROUP BY p.id
-UNION ALL
+UNION
 SELECT IFNULL(p.id, "-")   AS 'Person ID',
        IFNULL(p.name, "-") AS Name,
        IFNULL(GROUP_CONCAT(h.name), "-") AS Hobby
@@ -79,7 +79,6 @@ SELECT IFNULL(p.id, "-")   AS 'Person ID',
 FROM persons p
          RIGHT JOIN person_hobbies ph on p.id = ph.person_id
          RIGHT JOIN hobbies h on h.id = ph.hobby_id
-WHERE p.id is null
 
 GROUP BY p.id
 ORDER BY `Person ID`
