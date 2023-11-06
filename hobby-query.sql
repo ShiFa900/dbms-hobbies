@@ -64,21 +64,26 @@ WHERE p.id is null
 # SOAL 5
 SELECT IFNULL(p.id, "-")   AS 'Person ID',
        IFNULL(p.name, "-") AS Name,
-       IFNULL(h.name, "-") AS Hobby
+       IFNULL(GROUP_CONCAT(h.name), "-") AS Hobby
+
 
 FROM persons p
          LEFT JOIN person_hobbies ph on p.id = ph.person_id
          LEFT JOIN hobbies h on h.id = ph.hobby_id
+GROUP BY p.id
 UNION ALL
 SELECT IFNULL(p.id, "-")   AS 'Person ID',
        IFNULL(p.name, "-") AS Name,
-       IFNULL(h.name, "-") AS Hobby
+       IFNULL(GROUP_CONCAT(h.name), "-") AS Hobby
+
 FROM persons p
          RIGHT JOIN person_hobbies ph on p.id = ph.person_id
          RIGHT JOIN hobbies h on h.id = ph.hobby_id
 WHERE p.id is null
 
-ORDER BY Hobby DESC
+GROUP BY p.id
+ORDER BY `Person ID`
+
 ;
 
 
